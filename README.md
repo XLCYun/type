@@ -62,7 +62,7 @@ type.isInteger(" 1.00"); // false
 type.isInteger("1.00a"); // false
 ```
 
-If you want to take "1.00"(in string) as a float, use `isFloatInString(o) && isNotFloatInString(o)`;
+If you want to take "1.00"(in string) as a float, use `isNumber(o) && isNotFloatInString(o)`;
 
 ```JavaScript
 o = "1.00";
@@ -73,7 +73,7 @@ type.isNumber(o) && type.isFloatInString(o); // true
 
 o can be a string or number. If the decimal part is 0, string or number, it is regarded as an integer, not float.
 
-If you want to take "1.00"(in string) as a float, use `isFloatInString(o) && isNotFloatInString(o)`;
+If you want to take "1.00"(in string) as a float, use `isNumber(o) && isNotFloatInString(o)`;
 
 * **isFloatInString(o) && isNotFloatInString(o)**
 
