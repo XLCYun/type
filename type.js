@@ -55,14 +55,14 @@ var type = {
     isInteger: o => (type.isNumber(o) && (String(Number.parseInt(o)) === String(o))),
     isNotInteger: o => (!type.isInteger(o)),
     // int in string
-    isIntegerInString: o => (type.isString(o) && /^[-]?[0-9]+$/.test(o)), 
+    isIntegerInString: o => (type.isString(o) && /^[+-]?[0-9]+$/.test(o)), 
     isNotIntegerInString: o => (!type.isIntegerInString(o)), 
 
     // float, test for Number || test for String, unlinke parseInt, parseFloat(Infinity) returns Infinity, not NaN
     isFloat: o => (type.isNumber(o) && type.isFiniteNumber(o) && type.isNotInteger(o) /* && String(Number.parseFloat(o)) === String(o)*/ ), 
     isNotFloat: o => (!type.isFloat(o)),
     // float in string
-    isFloatInString: o => (type.isString(o) && /^[-]?[0-9]*\.[0-9]*$/.test(o)),
+    isFloatInString: o => (type.isString(o) && /^[+-]?[0-9]*\.[0-9]*$/.test(o)),
     isNotFloatInString: o => (!type.isFloatInString(o)), 
 
     // Buffer
