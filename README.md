@@ -47,39 +47,41 @@ Same as Array.isArray(o)
 * **isBoolean(o) & isNotBoolean(o)**
 
 * **isInteger(o) & isNotInteger(o)**
+If the decimal part is 0, it is still regarded as an integer. 
 
-o can be a string or number. If the decimal part is 0, string or number, it is regarded as an integer. 
-
-```JavaScript
-type.isInteger("1.0000"); // true
-type.isInteger(23.0000); // true
+```
+type.isInteger(1.00); // true
 ```
 
-If o is a string, any illegal character will cause a false result.
+* **isIntegerInString(o) & isNotIntegerInString(o)**
+Check if o is a integer in string. If it has a decimal point, it is not a integer.
+Scientific notation is not supported in these functions yet. 
 
 ```JavaScript
-type.isInteger(" 1.00"); // false
-type.isInteger("1.00a"); // false
+type.isIntegerInString('1.0000'); // false
+type.isIntegerInString('23'); // true
 ```
 
-If you want to take "1.00"(in string) as a float, use `isNumber(o) && isNotFloatInString(o)`;
+Any illegal character is unacceptable:
 
 ```JavaScript
-o = "1.00";
-type.isNumber(o) && type.isFloatInString(o); // true
+type.isIntegerInString(" 1.00"); // false
+type.isIntegerInString("1.00a"); // false
 ```
 
 * **isFloat(o) && isNotFloat(o)**
 
-o can be a string or number. If the decimal part is 0, string or number, it is regarded as an integer, not float.
+If the decimal part is 0, string or number, it is regarded as an integer, not float.
 
-If you want to take "1.00"(in string) as a float, use `isNumber(o) && isNotFloatInString(o)`;
+```
+type.isFloat(1.00); // false
+```
 
 * **isFloatInString(o) && isNotFloatInString(o)**
 
 Check string o if it contains a float, any illegal character will cause a false result;
 
-Return true even if the decimal part is zero or no decimal part.
+Scientific notation is not supported in these function yet. 
 
 ```JavaScript
 type.isFloatInString("-2.1"); // true
