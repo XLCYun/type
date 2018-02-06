@@ -2,7 +2,7 @@
 
 Type checking tool for javascript, testing in node.js v8.9.4 using mocha.
 
-Every isType function has a match function call isNotType, which simply equals to `!isType()`.
+Every `isType(o)` function has a match function call `isNotType(o)`, which simply equals to `!isType()`.
 
 # usage
 ```JavaScript
