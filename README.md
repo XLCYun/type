@@ -77,7 +77,7 @@ If you want to take "1.00"(in string) as a float, use `isNumber(o) && isNotFloat
 
 * **isFloatInString(o) && isNotFloatInString(o)**
 
-Check a string o if it contains a float, any illegal character will cause a false result;
+Check string o if it contains a float, any illegal character will cause a false result;
 
 Return true even if the decimal part is zero or no decimal part.
 
@@ -101,7 +101,7 @@ type.isFloatInString("2.1a"); // false
   
 * **isDate(o) && isNotDate(o)**
 
-if o is a string or an instance of Date that will be accepted by `Date.parse()`, isDate returns true; 
+if o is a string or an instance of Date that will be accepted by `Date.parse()`, `isDate(o)` returns true; 
 
 Therefore, time is not acceptable.
 
@@ -113,7 +113,7 @@ type.isDate("12:00:00"); // false;
 
 * **isObject(o) & isNotObject(o)**
 
-NOTE: Function is an object.
+*NOTE: Function is an object.*
 
 ```JavaScript
 type.isObject(()=>{}); // true
