@@ -122,24 +122,34 @@ describe('test for type', function () {
     });
     it('test for Integer', function () {
         runBasicTest([aInteger, 10000000000, 80000000000, -3, -1000000000, -1234567891011, -12345, -123, -1, 0,
-                1, 123, 12345, 12345678910, 1.0, -11111.00000, "1.0", "-11111.0000000", "1111.000"
+                1, 123, 12345, 12345678910, 1.0, -11111.00000,
             ],
             type.isInteger, type.isNotInteger);
         runBasicTest([aObject, bObject, aFunction, bFunction, aArray, bArray,
                 aString, bString, aDate, aFloat, aRegExp, aBuffer,
                 aError, aBoolean, aNaN, aInfinity, bInfinity, aNull, aUndefined,
-                ".00001", "0.0001", "-1.2", "1.2", "12345.6890", "-123456.9000", "."
+                ".00001", "0.0001", "-1.2", "1.2", "12345.6890", "-123456.9000", ".",
+                0.000001, 0.0001, -1.2, 1.2, 12345.6890, -123456.9000
             ],
             type.isNotInteger, type.isInteger);
     });
+    it('test for IntegerInString', function () {
+        runBasicTest(["1", "-11111", "1111", "-1234", "1234"],
+            type.isIntegerInString, type.isNotIntegerInString);
+        runBasicTest([aObject, bObject, aFunction, bFunction, aArray, bArray,
+                aString, bString, aDate, aFloat, aRegExp, aBuffer, aInteger, 
+                aError, aBoolean, aNaN, aInfinity, bInfinity, aNull, aUndefined,
+                ".00001", "0.0001", "-1.2", "1.2", "12345.6890", "-123456.9000", ".",
+                0.000001, 0.0001, -1.2, 1.2, 12345.6890, -123456.9000, 1, 23, 13254, -234, -13242345
+            ], 
+            type.isNotIntegerInString, type.isIntegerInString);
+    });
     it('test for Float', function () {
-        runBasicTest([aFloat, -123456.1790234, -612.01, -1.2345, -1.000002, 1.2345, 1234.324576, 23145646.01,
-            "-123456.1234", "-5123.234", "-1.1234", -"1.00002", "1.2345", "1234.324"
-        ], type.isFloat, type.isNotFloat);
+        runBasicTest([aFloat, -123456.1790234, -612.01, -1.2345, -1.000002, 1.2345, 1234.324576, 23145646.01], type.isFloat, type.isNotFloat);
         runBasicTest([aObject, bObject, aFunction, bFunction, aArray, bArray,
             aString, bString, aDate, aRegExp, aBuffer,
             aError, aBoolean, aNaN, aInfinity, bInfinity, aNull, aUndefined, aInteger,
-            "asd1234", " 123.4", "1.3a45"
+            "asd1234", " 123.4", "1.3a45", "-123456.1234", "-5123.234", "-1.1234", "-1.00002", "1.2345", "1234.324"
         ], type.isNotFloat, type.isFloat);
     });
     it('test for FloatInString', function () {
@@ -147,7 +157,8 @@ describe('test for type', function () {
         runBasicTest([aObject, bObject, aFunction, bFunction, aArray, bArray,
             aString, bString, aDate, aRegExp, aBuffer,
             aError, aBoolean, aNaN, aInfinity, bInfinity, aNull, aUndefined, aInteger,
-            "asd1234", " 123.4", "1.3a45", "*1234.234", aInteger, aFloat
+            "asd1234", " 123.4", "1.3a45", "*1234.234", aInteger, aFloat,
+            1234.234, 345.3200, 2314.000, 213, 456, 134534567,
         ], type.isNotFloatInString, type.isFloatInString);
     });
     it('test for Buffer', function () {
@@ -158,8 +169,9 @@ describe('test for type', function () {
             aString, bString, aDate, aInteger, aFloat, aRegExp, aBuffer,
             aBoolean, aNaN, aInfinity, bInfinity, aNull, aUndefined,
         ], type.isNotError, type.isError);
-        runBasicTest([new AssertionError({}), new RangeError("RE"), new ReferenceError("RefE"), new TypeError("TE"), new SyntaxError("SE"), 
-        aError, new Error("error")], type.isError, type.isNotError);
+        runBasicTest([new AssertionError({}), new RangeError("RE"), new ReferenceError("RefE"), new TypeError("TE"), new SyntaxError("SE"),
+            aError, new Error("error")
+        ], type.isError, type.isNotError);
 
         runBasicTest([new AssertionError({})], type.isAssertionError, type.isNotAssertionError);
         runBasicTest([aObject, bObject, aFunction, bFunction, aArray, bArray,
@@ -173,15 +185,15 @@ describe('test for type', function () {
         runBasicTest([new RangeError("RE")], type.isRangeError, type.isNotRangeError);
         runBasicTest([aObject, bObject, aFunction, bFunction, aArray, bArray,
                 aString, bString, aDate, aInteger, aFloat, aRegExp, aBuffer,
-                aError, aBoolean, aNaN, aInfinity, bInfinity, aNull, aUndefined, 
-                new AssertionError({}), new ReferenceError("RefE"), new TypeError("TE"), new SyntaxError("SE"), 
+                aError, aBoolean, aNaN, aInfinity, bInfinity, aNull, aUndefined,
+                new AssertionError({}), new ReferenceError("RefE"), new TypeError("TE"), new SyntaxError("SE"),
             ],
             type.isNotRangeError, type.isRangeError);
 
         runBasicTest([new ReferenceError("RefE")], type.isReferenceError, type.isNotReferenceError);
         runBasicTest([aObject, bObject, aFunction, bFunction, aArray, bArray,
                 aString, bString, aDate, aInteger, aFloat, aRegExp, aBuffer,
-                aError, aBoolean, aNaN, aInfinity, bInfinity, aNull, aUndefined, 
+                aError, aBoolean, aNaN, aInfinity, bInfinity, aNull, aUndefined,
                 new AssertionError({}), new RangeError("RE"), new TypeError("TE"), new SyntaxError("SE")
             ],
             type.isNotReferenceError, type.isReferenceError);
@@ -190,8 +202,8 @@ describe('test for type', function () {
         runBasicTest([new TypeError("TE")], type.isTypeError, type.isNotTypeError);
         runBasicTest([aObject, bObject, aFunction, bFunction, aArray, bArray,
                 aString, bString, aDate, aInteger, aFloat, aRegExp, aBuffer,
-                aError, aBoolean, aNaN, aInfinity, bInfinity, aNull, aUndefined, 
-                new AssertionError({}), new RangeError("RE"), new ReferenceError("RefE"), new SyntaxError("SE"), 
+                aError, aBoolean, aNaN, aInfinity, bInfinity, aNull, aUndefined,
+                new AssertionError({}), new RangeError("RE"), new ReferenceError("RefE"), new SyntaxError("SE"),
             ],
             type.isNotTypeError, type.isTypeError);
 
@@ -199,7 +211,7 @@ describe('test for type', function () {
         runBasicTest([new SyntaxError("SE")], type.isSyntaxError, type.isNotSyntaxError);
         runBasicTest([aObject, bObject, aFunction, bFunction, aArray, bArray,
                 aString, bString, aDate, aInteger, aFloat, aRegExp, aBuffer,
-                aError, aBoolean, aNaN, aInfinity, bInfinity, aNull, aUndefined, 
+                aError, aBoolean, aNaN, aInfinity, bInfinity, aNull, aUndefined,
                 new AssertionError({}), new RangeError("RE"), new ReferenceError("RefE"), new TypeError("TE"),
             ],
             type.isNotSyntaxError, type.isSyntaxError);
