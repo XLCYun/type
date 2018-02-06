@@ -5,7 +5,7 @@ Type checking tool for javascript, testing in node.js v8.9.4 using mocha.
 Every isType function has a match function call isNotType, which simply equals to `!isType()`.
 
 # usage
-```
+```JavaScript
 var type = require('type');
 
 type.isInteger(2); // true
@@ -34,19 +34,19 @@ Same as Array.isArray(o)
 * isBoolean(o) & isNotBoolean(o)
 * isInteger(o) & isNotInteger(o)
 o can be a string or number. If the decimal part is 0, string or number, it is regarded as an integer. 
-```
+```JavaScript
 type.isInteger("1.0000"); // true
 type.isInteger(23.0000); // true
 ```
 
 If o is a string, any illegal character will cause a false result.
-```
+```JavaScript
 type.isInteger(" 1.00"); // false
 type.isInteger("1.00a"); // false
 ```
 
 If you want to take "1.00"(in string) as a float, use `isFloatInString(o) && isNotFloatInString(o)`;
-```
+```JavaScript
 o = "1.00";
 type.isNumber(o) && type.isFloatInString(o); // true
 ```
@@ -56,7 +56,7 @@ If you want to take "1.00"(in string) as a float, use `isFloatInString(o) && isN
 * isFloatInString(o) && isNotFloatInString(o)
 Check a string o if it contains a float, any illegal character will cause a false result;
 Return true even if the decimal part is zero or no decimal part.
-```
+```JavaScript
 type.isFloatInString("-2.1"); // true
 type.isFloatInString("2."); // = 2.0, true
 type.isFloatInString(".1"); // = 0.1, true
@@ -74,12 +74,12 @@ type.isFloatInString("2.1a"); // false
 * isDate(o) && isNotDate(o)
 if o is a string or an instance of Date that will be accepted by `Date.parse()`, isDate returns true; 
 Therefore, time will not be acceptable.
-```
+```JavaScript
 type.isDate("12:00:00"); // false;
 ```
 * isRegExp(o) & isNotRegExp(o)
 * isObject(o) & isNotObject(o)
 NOTE: Function is an object.
-```
+```JavaScript
 type.isObject(()=>{}); // true
 ```
